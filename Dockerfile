@@ -1,4 +1,3 @@
-
 # Use a minimal Ubuntu base image
 FROM ubuntu:20.04
 
@@ -12,10 +11,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \
+    alien \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Download and install Posit Workbench
-RUN wget --no-check-certificate https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2024.09.0-375-x86_64.rpm  
+RUN wget --no-check-certificate https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2024.09.0-375-x86_64.rpm \
+    && alien -i rstudio-server-rhel-2024.09.0-375-x86_64.rpm
 
 # Create a working directory
 WORKDIR /home/rstudio
